@@ -191,38 +191,34 @@ function wait(milliseconds) {
   return new Promise(resolve => window.setTimeout(resolve, milliseconds));
 }
 
-async function placeReactionSticker(sticker) {
-  const image = $("#reactionImage");
-  image.src = sticker.src;
-  image.alt = sticker.alt;
-  try {
-    await image.decode();
-  } catch (error) {}
-}
-
-async function swapReactionSticker(sticker) {
-  const image = $("#reactionImage");
-  image.classList.add("is-swapping");
-  await wait(100);
-  await placeReactionSticker(sticker);
-  $("#reactionText").textContent = randomItem(reactionCaptions);
-  window.requestAnimationFrame(() => image.classList.remove("is-swapping"));
-  await wait(750);
+async function placeReactionStickers(sequence) {
+  const gallery = $("#reactionImages");
+  gallery.classList.toggle("is-pair", sequence.length > 1);
+  const images = sequence.map(sticker => {
+    const image = document.createElement("img");
+    image.src = sticker.src;
+    image.alt = sticker.alt;
+    image.decoding = "async";
+    return image;
+  });
+  gallery.replaceChildren(...images);
+  await Promise.all(images.map(async image => {
+    try {
+      await image.decode();
+    } catch (error) {}
+  }));
 }
 
 async function playReactionSequence(sequence) {
   await Promise.all(sequence.map(sticker => preloadImage(sticker.src)));
-  await placeReactionSticker(sequence[0]);
+  await placeReactionStickers(sequence);
   $("#reactionText").textContent = randomItem(reactionCaptions);
   $("#reaction").classList.remove("is-leaving");
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => $("#reaction").classList.add("is-visible"));
   });
 
-  await wait(850);
-  for (let index = 1; index < sequence.length; index += 1) {
-    await swapReactionSticker(sequence[index]);
-  }
+  await wait(sequence.length > 1 ? 1400 : 1100);
 
   $(".question-content").classList.add("is-switching");
   await wait(100);
