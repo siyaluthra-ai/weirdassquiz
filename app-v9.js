@@ -38,6 +38,26 @@ const questions = [
   {
     text: "Choose the safest sentence.",
     answers: ["ma'am is absent", "trust me", "quick call?", "kal dekhte hain"]
+  },
+  {
+    text: "Your phone is at 1%. What now?",
+    answers: ["accept fate", "brightness to zero", "borrow someone's charger", "keep scrolling"]
+  },
+  {
+    text: "Pick the most reliable alarm.",
+    answers: ["seven alarms", "mummy", "panic", "someone calling twice"]
+  },
+  {
+    text: "Someone deleted a message. Your response?",
+    answers: ["what was it", "I saw it", "screenshot?", "pretend to have dignity"]
+  },
+  {
+    text: "Choose your emergency chair.",
+    answers: ["the clothes chair", "plastic wedding chair", "front-row chair", "the floor"]
+  },
+  {
+    text: "Your screen time report arrives.",
+    answers: ["government secret", "delete evidence", "must be a glitch", "next question"]
   }
 ];
 
@@ -75,16 +95,6 @@ const chairmanResult = {
   title:"self-appointed chairman",
   line:"One nickname and suddenly bro expects quarterly reports."
 };
-
-const reactionCaptions = [
-  "mummy has been notified.",
-  "the samosa is taking notes.",
-  "terrible. locked in.",
-  "the pigeon disagrees.",
-  "this answer has legal consequences.",
-  "even Dora is lost.",
-  "the group chat will hear of this."
-];
 
 const views = {
   start: document.querySelector("#startView"),
@@ -179,46 +189,31 @@ function buildReactionGroups(stickerPool) {
     const [guaranteedSticker] = deck.splice(guaranteedIndex, 1);
     deck.unshift(guaranteedSticker);
   }
-  const questionNumbers = shuffled(questions.map((_, index) => index));
-  const doubleQuestions = new Set(questionNumbers.slice(0, 5));
-  return questions.map((_, index) => {
-    const amount = doubleQuestions.has(index) ? 2 : 1;
-    return deck.splice(0, amount);
-  });
+  return deck.map(sticker => [sticker]);
 }
 
 function wait(milliseconds) {
   return new Promise(resolve => window.setTimeout(resolve, milliseconds));
 }
 
-async function placeReactionStickers(sequence) {
-  const gallery = $("#reactionImages");
-  gallery.classList.toggle("is-pair", sequence.length > 1);
-  const images = sequence.map(sticker => {
-    const image = document.createElement("img");
-    image.src = sticker.src;
-    image.alt = sticker.alt;
-    image.decoding = "async";
-    return image;
-  });
-  gallery.replaceChildren(...images);
-  await Promise.all(images.map(async image => {
-    try {
-      await image.decode();
-    } catch (error) {}
-  }));
+async function placeReactionSticker(sticker) {
+  const image = $("#reactionImage");
+  image.src = sticker.src;
+  image.alt = sticker.alt;
+  try {
+    await image.decode();
+  } catch (error) {}
 }
 
 async function playReactionSequence(sequence) {
   await Promise.all(sequence.map(sticker => preloadImage(sticker.src)));
-  await placeReactionStickers(sequence);
-  $("#reactionText").textContent = randomItem(reactionCaptions);
+  await placeReactionSticker(sequence[0]);
   $("#reaction").classList.remove("is-leaving");
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => $("#reaction").classList.add("is-visible"));
   });
 
-  await wait(sequence.length > 1 ? 1400 : 1100);
+  await wait(1100);
 
   $(".question-content").classList.add("is-switching");
   await wait(100);
