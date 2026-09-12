@@ -286,27 +286,13 @@ input:focus {
   transform: scale(.98) translateY(-14px);
 }
 
-.reaction-images {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-}
-
-.reaction-images.is-pair {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.reaction-images img {
+.reaction-panel img {
   display: block;
   width: 100%;
   height: 260px;
   border-radius: 15px;
   background: white;
   object-fit: contain;
-}
-
-.reaction-images.is-pair img {
-  height: 210px;
 }
 
 .reaction-panel p {
@@ -405,8 +391,7 @@ input:focus {
   .answers { grid-template-columns: 1fr; gap: 9px; }
   .answer { min-height: 58px; padding: 13px 15px; border-radius: 15px; }
   .question-content h2 { margin-bottom: 25px; }
-  .reaction-images img { height: 235px; }
-  .reaction-images.is-pair img { height: 170px; }
+  .reaction-panel img { height: 235px; }
 }
 
 @media (min-width: 861px) {
