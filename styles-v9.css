@@ -268,6 +268,7 @@ input:focus {
   padding: 14px 14px 16px;
   border-radius: 23px;
   background: var(--pink);
+  overflow: hidden;
   box-shadow: 0 24px 70px rgba(33, 29, 27, .22);
   opacity: 0;
   transform: scale(.94) translateY(18px);
@@ -293,6 +294,11 @@ input:focus {
   border-radius: 15px;
   background: white;
   object-fit: contain;
+  transform-origin: center;
+}
+
+.reaction-panel img.is-screenshot-crop {
+  transform: scale(1.1);
 }
 
 .reaction-panel p {
@@ -338,6 +344,7 @@ input:focus {
   padding: 12px;
   border-radius: 24px;
   background: var(--pink);
+  overflow: hidden;
 }
 
 .result-image-wrap img {
@@ -347,6 +354,11 @@ input:focus {
   border-radius: 15px;
   object-fit: contain;
   background: white;
+  transform-origin: center;
+}
+
+.result-image-wrap img.is-screenshot-crop {
+  transform: scale(1.1);
 }
 
 .result-line {
