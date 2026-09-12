@@ -88,12 +88,7 @@ const ethanResult = {
 
 const allStickers = [...reactionStickers, ethanResult];
 const guaranteedReactionSrc = "assets/bin-laden.png";
-const screenshotCropSrcs = new Set([
-  "assets/kermit-guide.png",
-  "assets/bin-laden.png",
-  "assets/need-brain.png",
-  "assets/nokia.png"
-]);
+const screenshotCropSrcs = new Set();
 
 const chairmanResult = {
   src:"assets/e100.gif",
