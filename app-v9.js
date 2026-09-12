@@ -1,63 +1,63 @@
 const questions = [
   {
     text: "Choose a number between 7 and refrigerator.",
-    answers: ["8", "purple", "Delhi Metro", "no"]
+    answers: ["8", "purple", "Samsung double-door", "Tuesday"]
   },
   {
-    text: "You are now Minister of Maggi. Your first law?",
-    answers: ["two packets means one serving", "ban soupy Maggi", "masala packet tax", "national Maggi holiday"]
+    text: "You are the Minister of Maggi. Emergency law?",
+    answers: ["two packets = one serving", "jail for soupy Maggi", "free masala packet", "ban sharing"]
   },
   {
-    text: "Pick a valid unit of time.",
-    answers: ["two minutes", "after this reel", "kal", "I'm on my way"]
+    text: "Someone replied “k”. What happened?",
+    answers: ["war declared", "nothing", "friendship over", "thumb injury"]
   },
   {
-    text: "You join a call with nine people. First move?",
-    answers: ["leave", "mute and listen", "say hello for some reason", "take a screenshot"]
+    text: "Mummy said “do whatever you want.” Now what?",
+    answers: ["do absolutely nothing", "apologise immediately", "leave the country", "call a lawyer"]
   },
   {
-    text: "Someone says “I have tea.”",
-    answers: ["call immediately", "voice note", "names first", "pretend I don't care"]
+    text: "Unknown group chat added you. First move?",
+    answers: ["who are you people", "read all 847 messages", "send one sticker", "leave with dignity"]
   },
   {
     text: "Which object has the most authority?",
-    answers: ["school ID card", "steel bottle", "TV remote", "mummy's slipper"]
+    answers: ["mummy's slipper", "TV remote", "school diary", "steel dabba"]
   },
   {
-    text: "Pick a believable excuse.",
-    answers: ["my phone died at 87%", "I was typing", "I didn't see it", "I sent it in my mind"]
+    text: "Teacher says “pair up.” Survival plan?",
+    answers: ["avoid eye contact", "adopt nearest human", "be absent suddenly", "form illegal trio"]
   },
   {
-    text: "What counts as studying?",
-    answers: ["opening the PDF", "highlighting the heading", "one exam reel", "complaining in the group"]
+    text: "At a wedding where you know nobody, you...",
+    answers: ["guard the dessert", "judge outfits silently", "follow one cousin", "hold a random baby"]
   },
   {
     text: "Your friend says “don't tell anyone.”",
-    answers: ["obviously not", "tell one person", "tell the group", "forget instantly"]
+    answers: ["tell nobody", "tell one trusted nation", "open conference call", "forget while listening"]
   },
   {
-    text: "Choose the safest sentence.",
-    answers: ["ma'am is absent", "trust me", "quick call?", "kal dekhte hain"]
+    text: "Pick the excuse least likely to survive court.",
+    answers: ["phone died at 87%", "replied telepathically", "WhatsApp hid you", "Mercury did it"]
   },
   {
     text: "Your phone is at 1%. What now?",
-    answers: ["accept fate", "brightness to zero", "borrow someone's charger", "keep scrolling"]
+    answers: ["one last reel", "brightness below zero", "steal a charger", "call everyone goodbye"]
   },
   {
-    text: "Pick the most reliable alarm.",
-    answers: ["seven alarms", "mummy", "panic", "someone calling twice"]
+    text: "What actually wakes you up?",
+    answers: ["seven alarms", "mummy once", "exam panic", "unknown number calling"]
   },
   {
     text: "Someone deleted a message. Your response?",
-    answers: ["what was it", "I saw it", "screenshot?", "pretend to have dignity"]
+    answers: ["WHAT WAS IT", "I saw everything", "request CCTV", "pretend not to care"]
   },
   {
-    text: "Choose your emergency chair.",
-    answers: ["the clothes chair", "plastic wedding chair", "front-row chair", "the floor"]
+    text: "Select the chair with the strongest résumé.",
+    answers: ["clothes chair", "plastic wedding chair", "principal's chair", "floor"]
   },
   {
-    text: "Your screen time report arrives.",
-    answers: ["government secret", "delete evidence", "must be a glitch", "next question"]
+    text: "Screen Time sends the weekly report. Defence?",
+    answers: ["national secret", "phone was possessed", "Apple is lying", "delete Screen Time"]
   }
 ];
 
@@ -88,6 +88,12 @@ const ethanResult = {
 
 const allStickers = [...reactionStickers, ethanResult];
 const guaranteedReactionSrc = "assets/bin-laden.png";
+const screenshotCropSrcs = new Set([
+  "assets/kermit-guide.png",
+  "assets/bin-laden.png",
+  "assets/need-brain.png",
+  "assets/nokia.png"
+]);
 
 const chairmanResult = {
   src:"assets/e100.gif",
@@ -200,6 +206,7 @@ async function placeReactionSticker(sticker) {
   const image = $("#reactionImage");
   image.src = sticker.src;
   image.alt = sticker.alt;
+  image.classList.toggle("is-screenshot-crop", screenshotCropSrcs.has(sticker.src));
   try {
     await image.decode();
   } catch (error) {}
@@ -308,6 +315,7 @@ function showResult() {
   $("#resultTitle").textContent = result.title;
   $("#resultImage").src = result.src;
   $("#resultImage").alt = result.alt;
+  $("#resultImage").classList.toggle("is-screenshot-crop", screenshotCropSrcs.has(result.src));
   $("#resultLine").textContent = result.line;
   showView("result");
   $("#restartButton").focus();
