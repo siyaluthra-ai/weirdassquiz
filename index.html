@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e1cec6" />
+  <meta name="description" content="ehh" />
+  <title>weirdass quiz that assigns u a cringy gif</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23F05B2A'/%3E%3Ccircle cx='23' cy='28' r='4' fill='%231d1a19'/%3E%3Ccircle cx='41' cy='28' r='4' fill='%231d1a19'/%3E%3Cpath d='M20 42c7-6 17-6 24 0' fill='none' stroke='%231d1a19' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles-v9.css" />
+</head>
+<body>
+  <main class="app" id="app">
+    <div class="topbar">
+      <span class="site-name">weirdass quiz that assigns u a cringy gif</span>
+      <span class="step-label" id="stepLabel"></span>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+
+    <section class="view start-view is-visible" id="startView">
+      <div class="content start-content">
+        <span class="tiny-label">nothing serious</span>
+        <h1>enter your name</h1>
+        <p>It gets worse after this.</p>
+        <form id="nameForm" novalidate>
+          <label class="sr-only" for="nameInput">Your name</label>
+          <div class="input-row">
+            <input id="nameInput" name="name" type="text" maxlength="36" autocomplete="off" placeholder="name" />
+            <button class="arrow-button" type="submit" aria-label="Start quiz">→</button>
+          </div>
+          <p class="form-error" id="formError" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="view quiz-view" id="quizView" aria-live="polite">
+      <div class="content question-content">
+        <p class="question-number" id="questionNumber"></p>
+        <h2 id="questionText"></h2>
+        <div class="answers" id="answers"></div>
+      </div>
+    </section>
+
+    <section class="view loading-view" id="loadingView" aria-live="polite">
+      <div class="content loading-content">
+        <div class="loader"><i></i><i></i><i></i></div>
+        <h2 id="loadingText">one sec...</h2>
+      </div>
+    </section>
+
+    <section class="view result-view" id="resultView" aria-live="polite">
+      <div class="content result-content">
+        <p class="tiny-label" id="resultEyebrow">unfortunate</p>
+        <h2 id="resultTitle"></h2>
+        <div class="result-image-wrap">
+      <img id="resultImage" src="" alt="" decoding="async" />
+        </div>
+        <p class="result-line" id="resultLine"></p>
+        <button class="plain-button" id="restartButton" type="button">again</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="reaction" id="reaction" role="status" aria-live="assertive">
+    <div class="reaction-panel">
+      <img id="reactionImage" src="" alt="Reaction sticker" decoding="async" />
+      <p id="reactionText"></p>
+    </div>
+  </div>
+
+  <script src="app-v9.js"></script>
+</body>
+</html>
