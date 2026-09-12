@@ -203,11 +203,11 @@ async function placeReactionSticker(sticker) {
 async function swapReactionSticker(sticker) {
   const image = $("#reactionImage");
   image.classList.add("is-swapping");
-  await wait(80);
+  await wait(100);
   await placeReactionSticker(sticker);
   $("#reactionText").textContent = randomItem(reactionCaptions);
   window.requestAnimationFrame(() => image.classList.remove("is-swapping"));
-  await wait(320);
+  await wait(750);
 }
 
 async function playReactionSequence(sequence) {
@@ -219,16 +219,16 @@ async function playReactionSequence(sequence) {
     window.requestAnimationFrame(() => $("#reaction").classList.add("is-visible"));
   });
 
-  await wait(380);
+  await wait(850);
   for (let index = 1; index < sequence.length; index += 1) {
     await swapReactionSticker(sequence[index]);
   }
 
   $(".question-content").classList.add("is-switching");
-  await wait(90);
+  await wait(100);
   $("#reaction").classList.add("is-leaving");
   $("#reaction").classList.remove("is-visible");
-  await wait(160);
+  await wait(180);
   $("#reaction").classList.remove("is-leaving");
 }
 
